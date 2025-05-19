@@ -5,6 +5,9 @@ const progress = player.querySelector(".progress");
 const progressBar = player.querySelector(".progress__filled");
 const skipButtons = player.querySelectorAll("[data-skip]");
 const ranges = player.querySelectorAll(".player__slider");
+const screen = player.querySelector(".full__screen");
+
+console.log(screen);
 
 function togglePlay() {
   video.paused ? video.play() : video.pause();
@@ -36,13 +39,17 @@ function scrub(e) {
   video.currentTime = scrubTime;
 }
 
+function toggleFullScreen() {
+  video.requestFullscreen();
+}
 // Listen for paused video to change > & || button
 let mousedown = false;
-console.log(video);
+
 video.addEventListener("click", togglePlay);
 video.addEventListener("play", updateButton);
 video.addEventListener("pause", updateButton);
 video.addEventListener("timeupdate", handleProgressBar);
+screen.addEventListener("click", toggleFullScreen);
 progress.addEventListener("click", scrub);
 progress.addEventListener("mousemove", (e) => mousedown && scrub(e));
 progress.addEventListener("mousedown", () => (mousedown = true));
